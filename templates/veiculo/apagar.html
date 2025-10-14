@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block titulo %} Apagar Veículo {% endblock %}
+
+{% block conteudo %}
+
+<head>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100">
+    <div class="container mx-auto mt-8 p-4">
+        <div class="max-w-lg mx-auto bg-white rounded-lg shadow-md p-6">
+            <h2 class="text-3xl font-bold text-red-600 mb-6">Confirmar Exclusão</h2>
+            
+            <div class="mb-6">
+                {% if object.foto %}
+                    <img src="{{ object.foto.url }}" alt="Foto do veículo" class="w-full h-48 object-cover rounded-lg mb-4">
+                {% endif %}
+                
+                <div class="bg-gray-50 p-4 rounded-lg">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">
+                        {{ object.get_marca_display }} {{ object.modelo }}
+                    </h3>
+                    <p class="text-gray-600"><strong>Ano:</strong> {{ object.ano }}</p>
+                    <p class="text-gray-600"><strong>Cor:</strong> {{ object.get_cor_display }}</p>
+                    <p class="text-gray-600"><strong>Combustível:</strong> {{ object.get_combustivel_display }}</p>
+                </div>
+            </div>
+            
+            <div class="bg-red-50 border border-red-200 rounded-lg p-4 mb-6">
+                <p class="text-red-700 font-medium">
+                    ⚠️ Tem certeza que deseja apagar este veículo? Esta ação não pode ser desfeita.
+                </p>
+            </div>
+            
+            <form method="post" class="flex justify-between">
+                {% csrf_token %}
+                <a href="{% url 'listar-veiculos' %}" 
+                   class="bg-gray-600 text-white font-semibold py-2 px-6 rounded-lg hover:bg-gray-700 transition duration-300">
+                    Cancelar
+                </a>
+                <button type="submit" 
+                        class="bg-red-600 text-white font-semibold py-2 px-6 rounded-lg hover:bg-red-700 transition duration-300">
+                    Confirmar Exclusão
+                </button>
+            </form>
+        </div>
+    </div>
+</body>
+
+{% endblock %}

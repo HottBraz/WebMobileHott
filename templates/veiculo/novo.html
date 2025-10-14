@@ -11,7 +11,7 @@
     <div class="mb-4">
         <label for="marca" class="block text-gray-700 font-semibold mb-2">Marca:</label>
         <select id="marca" name="marca"
-            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-600 transition duration-200">
+            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-600 transition duration-200">
             <option value="">Selecione a marca</option>
             {% for key, value in form.marca.field.choices %}
             <option value="{{ key }}" {% if form.marca.value == key %}selected{% endif %}>{{ value }}</option>
@@ -25,7 +25,7 @@
     <div class="mb-4">
         <label for="modelo" class="block text-gray-700 font-semibold mb-2">Modelo:</label>
         <input type="text" id="modelo" name="modelo" value="{{ form.modelo.value|default_if_none:'' }}"
-            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-600 transition duration-200"
+            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-600 transition duration-200"
             placeholder="Digite o modelo do veículo">
         {% if form.modelo.errors %}
         <p class="text-red-500 text-sm mt-1">{{ form.modelo.errors.0 }}</p>
@@ -35,7 +35,7 @@
     <div class="mb-4">
         <label for="ano" class="block text-gray-700 font-semibold mb-2">Ano:</label>
         <input type="number" id="ano" name="ano" value="{{ form.ano.value|default_if_none:'' }}"
-            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-600 transition duration-200"
+            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-600 transition duration-200"
             placeholder="Digite o ano do veículo">
         {% if form.ano.errors %}
         <p class="text-red-500 text-sm mt-1">{{ form.ano.errors.0 }}</p>
@@ -45,7 +45,7 @@
     <div class="mb-4">
         <label for="cor" class="block text-gray-700 font-semibold mb-2">Cor:</label>
         <select id="cor" name="cor"
-            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-600 transition duration-200">
+            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-600 transition duration-200">
             <option value="">Selecione a cor</option>
             {% for key, value in form.cor.field.choices %}
             <option value="{{ key }}" {% if form.cor.value == key %}selected{% endif %}>{{ value }}</option>
@@ -59,7 +59,7 @@
     <div class="mb-4">
         <label for="combustivel" class="block text-gray-700 font-semibold mb-2">Combustível:</label>
         <select id="combustivel" name="combustivel"
-            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-600 transition duration-200">
+            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-600 transition duration-200">
             <option value="">Selecione o combustível</option>
             {% for key, value in form.combustivel.field.choices %}
             <option value="{{ key }}" {% if form.combustivel.value == key %}selected{% endif %}>{{ value }}</option>
@@ -72,14 +72,14 @@
     <div class="mb-6">
         <label for="foto" class="block text-gray-700 font-semibold mb-2">Foto do Veículo:</label>
         <input type="file" id="foto" name="foto"
-            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-600 transition duration-200">
+            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-600 transition duration-200">
         {% if form.foto.errors %}
         <p class="text-red-500 text-sm mt-1">{{ form.foto.errors.0 }}</p>
         {% endif %}
 
     <div class="flex justify-end">
         <button type="submit"
-            class="bg-teal-700 text-white font-bold py-2 px-6 rounded-lg hover:bg-teal-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-700 transition duration-300">
+            class="bg-black text-white font-bold py-2 px-6 rounded-lg hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-600 transition duration-300">
             Cadastrar
         </button>
     </div>

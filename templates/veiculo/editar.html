@@ -1,0 +1,124 @@
+{% extends "base.html" %}
+
+{% block titulo %} Editar Veículo {% endblock %}
+
+{% block conteudo %}
+
+<head>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100">
+    <div class="container mx-auto mt-8 p-4">
+        <div class="max-w-2xl mx-auto bg-white rounded-lg shadow-md p-6">
+            <h2 class="text-3xl font-bold text-gray-800 mb-6">Editar Veículo</h2>
+            
+            <form method="post" enctype="multipart/form-data" class="space-y-6">
+                {% csrf_token %}
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label for="{{ form.marca.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                            {{ form.marca.label }}
+                        </label>
+                        {{ form.marca }}
+                        {% if form.marca.errors %}
+                            <div class="text-red-600 text-sm mt-1">
+                                {{ form.marca.errors }}
+                            </div>
+                        {% endif %}
+                    </div>
+                    
+                    <div>
+                        <label for="{{ form.modelo.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                            {{ form.modelo.label }}
+                        </label>
+                        {{ form.modelo }}
+                        {% if form.modelo.errors %}
+                            <div class="text-red-600 text-sm mt-1">
+                                {{ form.modelo.errors }}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div>
+                        <label for="{{ form.ano.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                            {{ form.ano.label }}
+                        </label>
+                        {{ form.ano }}
+                        {% if form.ano.errors %}
+                            <div class="text-red-600 text-sm mt-1">
+                                {{ form.ano.errors }}
+                            </div>
+                        {% endif %}
+                    </div>
+                    
+                    <div>
+                        <label for="{{ form.cor.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                            {{ form.cor.label }}
+                        </label>
+                        {{ form.cor }}
+                        {% if form.cor.errors %}
+                            <div class="text-red-600 text-sm mt-1">
+                                {{ form.cor.errors }}
+                            </div>
+                        {% endif %}
+                    </div>
+                    
+                    <div>
+                        <label for="{{ form.combustivel.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                            {{ form.combustivel.label }}
+                        </label>
+                        {{ form.combustivel }}
+                        {% if form.combustivel.errors %}
+                            <div class="text-red-600 text-sm mt-1">
+                                {{ form.combustivel.errors }}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <div>
+                    <label for="{{ form.foto.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                        {{ form.foto.label }}
+                    </label>
+                    {% if object.foto %}
+                        <div class="mb-4">
+                            <p class="text-sm text-gray-600 mb-2">Foto atual:</p>
+                            <img src="{{ object.foto.url }}" alt="Foto atual" class="w-32 h-32 object-cover rounded-lg border">
+                        </div>
+                    {% endif %}
+                    {{ form.foto }}
+                    {% if form.foto.errors %}
+                        <div class="text-red-600 text-sm mt-1">
+                            {{ form.foto.errors }}
+                        </div>
+                    {% endif %}
+                </div>
+                
+                <div class="flex justify-between pt-6">
+                    <a href="{% url 'listar-veiculos' %}" 
+                       class="bg-gray-600 text-white font-semibold py-2 px-6 rounded-lg hover:bg-gray-700 transition duration-300">
+                        Cancelar
+                    </a>
+                    <button type="submit" 
+                            class="bg-black text-white font-semibold py-2 px-6 rounded-lg hover:bg-gray-800 transition duration-300">
+                        Salvar Alterações
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+
+{% endblock %}

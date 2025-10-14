@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block titulo %} Edição de Veículo {% endblock %}
+
+{% block conteudo %}
+    <h2>Editar Veículo</h2>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Salvar</button>
+    </form>
+{% endblock %}
+            <option value="{{ key }}" {% if form.cor.value == key %}selected{% endif %}>{{ value }}</option>
+            {% endfor %}
+        </select>
+        {% if form.cor.errors %}
+        <p class="text-red-500 text-sm mt-1">{{ form.cor.errors.0 }}</p>
+        {% endif %}
+    </div>
+
+    <div class="mb-4">
+        <label for="foto" class="block text-gray-700 font-semibold mb-2">Foto:</label>
+        <input type="file" id="foto" name="foto"
+            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-600 transition duration-200">
+        {% if form.foto.errors %}
+        <p class="text-red-500 text-sm mt-1">{{ form.foto.errors.0 }}</p>
+        {% endif %}
+    </div>
+
+    <div class="flex justify-end">
+        <button type="submit"
+            class="bg-teal-600 text-white px-6 py-2 rounded-lg hover:bg-teal-700 transition duration-200">Salvar</button>
+    </div>

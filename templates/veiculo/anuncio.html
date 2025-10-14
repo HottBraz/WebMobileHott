@@ -1,0 +1,34 @@
+    <div class="max-w-4xl mx-auto p-4">
+        <h1 class="text-3xl font-bold mb-6 text-gray-800">Anúncio do Veículo</h1>
+        <div class="bg-white shadow-md rounded-lg p-6">
+            <div class="mb-4">
+                <label class="block text-gray-700 font-semibold mb-2">Marca:</label>
+                <p class="text-gray-900">{{ veiculo.marca }}</p>
+            </div>
+            <div class="mb-4">
+                <label class="block text-gray-700 font-semibold mb-2">Modelo:</label>
+                <p class="text-gray-900">{{ veiculo.modelo }}</p>
+            </div>
+            <div class="mb-4">
+                <label class="block text-gray-700 font-semibold mb-2">Ano:</label>
+                <p class="text-gray-900">{{ veiculo.ano }}</p>
+            </div>
+            <div class="mb-4">
+                <label class="block text-gray-700 font-semibold mb-2">Cor:</label>
+                <p class="text-gray-900">{{ veiculo.get_cor_display }}</p>
+            </div>
+            <div class="mb-4">
+                <label class="block text-gray-700 font-semibold mb-2">Combustível:</label>
+                <p class="text-gray-900">{{ veiculo.get_combustivel_display }}</p>
+            </div>
+            <div class="mb-4">
+                <label class="block text-gray-700 font-semibold mb-2">Preço:</label>
+                <p class="text-gray-900">R$ {{ veiculo.preco }}</p>
+            </div>
+            {% if veiculo.imagem %}
+            <div class="mb-4">
+                <label class="block text-gray-700 font-semibold mb-2">Imagem do Veículo:</label>
+                <img src="{{ veiculo.imagem.url }}" alt="Imagem do Veículo" class="w-full h-auto rounded-lg">
+            </div>
+            {% endif %}
+        </div>

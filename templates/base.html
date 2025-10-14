@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <link rel="shortcut icon" type="image/x-icon" href="{% static 'img/favicon.jpg' %}" />
 
-    <title>{% block titulo %} Quantum Drive {% endblock %}</title>
+    <title>{% block titulo %} Hott Motors {% endblock %}</title>
 
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -30,16 +30,18 @@
             <div class="container mx-auto px-4">
                 <div class="flex items-center justify-between py-4">
                     <a href="/" class="flex items-center space-x-2">
-                        <img src="{% static 'imagens/Subtract.png' %}" alt="Quantum Drive Logo" class="w-10 h-10">
-                        <span class="text-2xl font-bold text-gray-800">Quantum Drive</span>
+                        <div class="w-10 h-10 bg-black flex items-center justify-center rounded">
+                            <div class="text-white font-bold text-lg">H</div>
+                        </div>
+                        <span class="text-2xl font-bold text-gray-800">Hott Motors</span>
                     </a>
 
                     <nav class="hidden md:flex space-x-6">
-                        <a href="/veiculo" class="text-gray-600 hover:text-teal-700 transition duration-300">Listar
+                        <a href="/veiculo" class="text-gray-600 hover:text-red-600 transition duration-300">Listar
                             veículos</a>
-                        <a href="/veiculo/novo" class="text-gray-600 hover:text-teal-700 transition duration-300">Cadastrar
+                        <a href="/veiculo/novo" class="text-gray-600 hover:text-red-600 transition duration-300">Cadastrar
                             veículo</a>
-                        <a href="#" class="text-gray-600 hover:text-teal-700 transition duration-300">Anúncios</a>
+                        <a href="#" class="text-gray-600 hover:text-red-600 transition duration-300">Anúncios</a>
                     </nav>
 
                     <div class="flex items-center">
@@ -48,7 +50,7 @@
                             Logout
                             {% if user.is_authenticated %}
                             <span
-                                class="absolute -top-2 -right-2 bg-teal-600 text-white text-xs font-bold px-2 py-1 rounded-full">
+                                class="absolute -top-2 -right-2 bg-red-600 text-white text-xs font-bold px-2 py-1 rounded-full">
                                 {{ user }}
                             </span>
                             {% endif %}
