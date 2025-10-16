@@ -16,44 +16,76 @@
         body {
             font-family: 'Inter', sans-serif;
         }
+        
+        /* Estilos para campos de formulário Django */
+        input[type="text"], input[type="number"], input[type="email"], input[type="password"], 
+        input[type="file"], select, textarea {
+            width: 100%;
+            padding: 0.5rem 1rem;
+            background-color: rgb(31, 41, 55); /* bg-gray-800 */
+            border: 1px solid rgb(55, 65, 81); /* border-gray-700 */
+            border-radius: 0.5rem;
+            color: white;
+            outline: none;
+            transition: all 0.2s ease-in-out;
+        }
+        
+        input[type="text"]:focus, input[type="number"]:focus, input[type="email"]:focus, 
+        input[type="password"]:focus, input[type="file"]:focus, select:focus, textarea:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px rgb(220, 38, 38); /* red-600 */
+            border-color: rgb(220, 38, 38);
+        }
+        
+        input::placeholder, textarea::placeholder {
+            color: rgb(156, 163, 175); /* text-gray-400 */
+        }
+        
+        /* Estilos específicos para select */
+        select option {
+            background-color: rgb(31, 41, 55);
+            color: white;
+        }
     </style>
 
     {% block css_local %}{% endblock %}
     {% block javascript_local %}{% endblock %}
 </head>
 
-<body class="bg-gray-50">
+<body class="bg-black">
 
     <div id="menu-superior">
         {% block menu_superior %}
-        <header class="bg-white shadow-md">
+        <header class="bg-black shadow-lg border-b border-gray-800">
             <div class="container mx-auto px-4">
                 <div class="flex items-center justify-between py-4">
-                    <a href="/" class="flex items-center space-x-2">
-                        <div class="w-10 h-10 bg-black flex items-center justify-center rounded">
-                            <div class="text-white font-bold text-lg">H</div>
+                    <a href="/" class="flex items-center space-x-3">
+                        <div class="w-12 h-12 bg-red-600 flex items-center justify-center rounded-lg">
+                            <div class="text-white font-bold text-xl">H</div>
                         </div>
-                        <span class="text-2xl font-bold text-gray-800">Hott Motors</span>
+                        <span class="text-2xl font-bold tracking-wide">
+                            <span class="text-red-500">H</span><span class="text-white">ott </span><span class="text-red-500">M</span><span class="text-white">otors</span>
+                        </span>
                     </a>
 
-                    <nav class="hidden md:flex space-x-6">
-                        <a href="/veiculo" class="text-gray-600 hover:text-red-600 transition duration-300">Listar
+                    <nav class="hidden md:flex space-x-8">
+                        <a href="/veiculo" class="text-white hover:text-red-500 transition duration-300 font-medium">Listar
                             veículos</a>
-                        <a href="/veiculo/novo" class="text-gray-600 hover:text-red-600 transition duration-300">Cadastrar
+                        <a href="/veiculo/novo" class="text-white hover:text-red-500 transition duration-300 font-medium">Cadastrar
                             veículo</a>
-                        <a href="{% url 'listar-anuncios' %}" class="text-gray-600 hover:text-red-600 transition duration-300">Anúncios</a>
+                        <a href="{% url 'listar-anuncios' %}" class="text-white hover:text-red-500 transition duration-300 font-medium">Anúncios</a>
                         {% if user.is_authenticated %}
-                            <a href="{% url 'meus-anuncios' %}" class="text-gray-600 hover:text-red-600 transition duration-300">Meus Anúncios</a>
+                            <a href="{% url 'meus-anuncios' %}" class="text-white hover:text-red-500 transition duration-300 font-medium">Meus Anúncios</a>
                         {% endif %}
                     </nav>
 
                     <div class="flex items-center">
                         <a href="/logout" type="button"
-                            class="bg-gray-200 text-gray-700 font-semibold py-2 px-4 rounded-lg hover:bg-gray-300 transition duration-300 relative">
+                            class="bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded-lg transition duration-300 relative">
                             Logout
                             {% if user.is_authenticated %}
                             <span
-                                class="absolute -top-2 -right-2 bg-red-600 text-white text-xs font-bold px-2 py-1 rounded-full">
+                                class="absolute -top-2 -right-2 bg-white text-black text-xs font-bold px-2 py-1 rounded-full">
                                 {{ user }}
                             </span>
                             {% endif %}
@@ -65,7 +97,7 @@
         {% endblock %}
     </div>
 
-    <main id="conteudo" class="container mx-auto p-4">
+    <main id="conteudo" class="min-h-screen bg-black">
         {% block conteudo %}{% endblock %}
     </main>
 

@@ -6,100 +6,98 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Hott Motors</title>
-    <!-- Importação do Tailwind CSS para estilização rápida e responsiva -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Importação de uma fonte do Google para se assemelhar ao design -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* Define a fonte 'Inter' como padrão para todo o corpo da página */
         body {
             font-family: 'Inter', sans-serif;
+        }
+        
+        .texture-bg {
+            background: #000000;
         }
     </style>
 </head>
 
-<body class="bg-white">
+<body class="texture-bg min-h-screen flex items-center justify-center">
 
-    <!-- Container Principal que ocupa a tela inteira -->
-    <div class="flex flex-col md:flex-row w-full min-h-screen">
+    <!-- Container Principal Centralizado -->
+    <div class="w-full max-w-md mx-auto px-6">
+        
+        <!-- Logo e Título -->
+        <div class="text-center mb-8">
+            <h1 class="text-6xl font-bold mb-2 tracking-wider">
+                <span class="text-red-500">H</span><span class="text-white">ott </span><span class="text-red-500">M</span><span class="text-white">otors</span>
+            </h1>
+        </div>
 
-        <!-- Seção Esquerda (Informações da Marca) -->
-        <div
-            class="w-full md:w-1/2 bg-gradient-to-br from-black to-gray-900 text-white p-8 sm:p-12 flex flex-col justify-center items-center text-center">
-            <!-- Logo 'H' com design em CSS -->
-            <div class="w-40 h-40 mb-4 bg-black flex items-center justify-center rounded-lg">
-                <div class="text-white font-bold text-6xl">H</div>
+        <!-- Formulário de Login -->
+
+        <form action="/" method="POST" class="space-y-6">
+            {% csrf_token %}
+            
+            <!-- Campo de Usuário -->
+            <div>
+                <label for="usuario" class="block text-white text-base font-medium mb-3">Usuário:</label>
+                <input type="text" id="usuario" name="usuario" required
+                    class="w-full px-4 py-4 bg-white border-0 rounded-full text-gray-800 text-lg focus:outline-none focus:ring-2 focus:ring-red-500 transition duration-200"
+                    placeholder="">
             </div>
-            <h1 class="text-4xl font-bold tracking-wide">Hott Motors</h1>
-            <p class="text-lg text-red-300 mt-2">Carros Quentes</p>
-        </div>
 
-        <!-- Seção Direita (Formulário de Login) -->
-        <div class="w-full md:w-1/2 bg-white p-8 sm:p-14 flex flex-col justify-center">
-            <div class="w-full max-w-md mx-auto">
-                <h2 class="text-3xl font-bold text-gray-800 mb-6">Login</h2>
-
-                <form action="/" method="POST">
-                    {% csrf_token %}
-                    <!-- Campo de Usuário -->
-                    <div class="mb-4">
-                        <label for="usuario" class="block text-gray-700 text-sm font-semibold mb-2">Usuário</label>
-                        <input type="text" id="usuario" name="usuario"
-                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-600 transition duration-200"
-                            placeholder="Usuário">
-                    </div>
-
-                    <!-- Campo de Senha -->
-                    <div class="mb-4">
-                        <label for="senha" class="block text-gray-700 text-sm font-semibold mb-2">Senha</label>
-                        <input type="password" id="senha" name="senha"
-                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-600 transition duration-200"
-                            placeholder="••••••••">
-                    </div>
-
-                    <!-- Link "Esqueci minha senha" -->
-                    <div class="text-right mb-6">
-                        <a href="#"
-                            class="text-sm text-gray-600 hover:text-red-600 hover:underline transition duration-200">Esqueci
-                            minha senha</a>
-                    </div>
-
-                    <!-- Botão de Entrar -->
-                    <div>
-                        <button type="submit"
-                            class="w-full bg-black text-white font-bold py-3 px-4 rounded-lg hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-600 transition duration-300">
-                            Entrar
-                        </button>
-                    </div>
-                </form>
-
-                <!-- Link para Criar Conta -->
-                <p class="text-center text-gray-600 mt-8">
-                    Não tem conta? <a href="#" class="text-red-600 font-semibold hover:underline">Criar agora</a>
-                </p>
+            <!-- Campo de Senha -->
+            <div>
+                <label for="senha" class="block text-white text-base font-medium mb-3">Senha:</label>
+                <input type="password" id="senha" name="senha" required
+                    class="w-full px-4 py-4 bg-white border-0 rounded-full text-gray-800 text-lg focus:outline-none focus:ring-2 focus:ring-red-500 transition duration-200"
+                    placeholder="">
             </div>
-        </div>
 
-        </div>
-        {% if mensagem %}
-        <!-- Modal de erro -->
-        <div id="modal-erro" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-40 z-50">
-            <div class="bg-white rounded-lg shadow-lg p-6 max-w-sm w-full text-center">
-                <h3 class="text-lg font-bold text-red-700 mb-2">Erro</h3>
-                <p class="text-gray-800 mb-4">{{ mensagem }}</p>
-                <button onclick="document.getElementById('modal-erro').style.display='none'"
-                    class="bg-black text-white px-4 py-2 rounded hover:bg-gray-800 transition">Fechar</button>
+            <!-- Link "Esqueci minha senha" -->
+            <div class="text-right mb-6">
+                <a href="#" class="text-sm text-gray-300 hover:text-red-400 transition duration-200">
+                    Esqueci minha senha
+                </a>
             </div>
-        </div>
-        <script>
-            // Garante que o modal aparece ao carregar a página
-            document.getElementById('modal-erro').style.display = 'flex';
-        </script>
-        {% endif %}
 
+            <!-- Botão de Entrar -->
+            <div class="pt-4">
+                <button type="submit"
+                    class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-4 px-6 rounded-full text-lg transition duration-300 transform hover:scale-105">
+                    ENTRAR
+                </button>
+            </div>
+        </form>
+
+        <!-- Link para Criar Conta -->
+        <p class="text-center text-gray-300 mt-8">
+            Não tem conta? <a href="#" class="text-red-400 font-semibold hover:text-red-300 transition duration-200">Criar conta</a>
+        </p>
     </div>
+    <!-- Modal de erro -->
+    {% if mensagem %}
+    <div id="modal-erro" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-60 z-50">
+        <div class="bg-white rounded-2xl shadow-2xl p-8 max-w-sm w-full mx-4 text-center">
+            <div class="mb-4">
+                <div class="w-16 h-16 bg-red-100 rounded-full mx-auto flex items-center justify-center mb-4">
+                    <svg class="w-8 h-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
+                    </svg>
+                </div>
+                <h3 class="text-xl font-bold text-gray-800 mb-2">Erro de Autenticação</h3>
+                <p class="text-gray-600 mb-6">{{ mensagem }}</p>
+            </div>
+            <button onclick="document.getElementById('modal-erro').style.display='none'"
+                class="bg-red-600 hover:bg-red-700 text-white font-semibold px-6 py-3 rounded-full transition duration-200">
+                Tentar Novamente
+            </button>
+        </div>
+    </div>
+    <script>
+        document.getElementById('modal-erro').style.display = 'flex';
+    </script>
+    {% endif %}
 
 </body>
 
