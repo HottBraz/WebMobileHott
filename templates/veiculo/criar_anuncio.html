@@ -1,0 +1,218 @@
+{% extends 'base.html' %}
+{% block title %}Criar Anúncio - Hott Motors{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-black">
+    <div class="container mx-auto px-4 py-8">
+        <div class="max-w-4xl mx-auto">
+            <!-- Cabeçalho -->
+            <div class="mb-8">
+                <h1 class="text-4xl font-bold text-white mb-2">Criar Anúncio</h1>
+                <p class="text-gray-300">Anuncie seu veículo e encontre o comprador ideal</p>
+            </div>
+
+            <!-- Formulário -->
+            <div class="bg-gray-900 rounded-lg p-8">
+                <form method="POST" class="space-y-6">
+                    {% csrf_token %}
+                    
+                    <!-- Veículo -->
+                    <div>
+                        <label for="{{ form.veiculo.id_for_label }}" class="block text-white text-sm font-medium mb-2">
+                            {{ form.veiculo.label }}
+                        </label>
+                        {{ form.veiculo }}
+                        {% if form.veiculo.errors %}
+                            <div class="mt-1 text-red-400 text-sm">
+                                {% for error in form.veiculo.errors %}
+                                    <p>{{ error }}</p>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                        <p class="mt-1 text-gray-400 text-sm">Selecione o veículo que você deseja anunciar</p>
+                    </div>
+
+                    <!-- Título -->
+                    <div>
+                        <label for="{{ form.titulo.id_for_label }}" class="block text-white text-sm font-medium mb-2">
+                            {{ form.titulo.label }}
+                        </label>
+                        {{ form.titulo }}
+                        {% if form.titulo.errors %}
+                            <div class="mt-1 text-red-400 text-sm">
+                                {% for error in form.titulo.errors %}
+                                    <p>{{ error }}</p>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Descrição -->
+                    <div>
+                        <label for="{{ form.descricao.id_for_label }}" class="block text-white text-sm font-medium mb-2">
+                            {{ form.descricao.label }}
+                        </label>
+                        {{ form.descricao }}
+                        {% if form.descricao.errors %}
+                            <div class="mt-1 text-red-400 text-sm">
+                                {% for error in form.descricao.errors %}
+                                    <p>{{ error }}</p>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                        <p class="mt-1 text-gray-400 text-sm">Descreva o estado, acessórios e características especiais do veículo</p>
+                    </div>
+
+                    <!-- Tipo de Anúncio e Preço -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label for="{{ form.tipo_anuncio.id_for_label }}" class="block text-white text-sm font-medium mb-2">
+                                {{ form.tipo_anuncio.label }}
+                            </label>
+                            {{ form.tipo_anuncio }}
+                            {% if form.tipo_anuncio.errors %}
+                                <div class="mt-1 text-red-400 text-sm">
+                                    {% for error in form.tipo_anuncio.errors %}
+                                        <p>{{ error }}</p>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <div>
+                            <label for="{{ form.preco.id_for_label }}" class="block text-white text-sm font-medium mb-2">
+                                {{ form.preco.label }}
+                            </label>
+                            {{ form.preco }}
+                            {% if form.preco.errors %}
+                                <div class="mt-1 text-red-400 text-sm">
+                                    {% for error in form.preco.errors %}
+                                        <p>{{ error }}</p>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                            <p class="mt-1 text-gray-400 text-sm">Deixe em branco se for apenas troca</p>
+                        </div>
+                    </div>
+
+                    <!-- Quilometragem -->
+                    <div>
+                        <label for="{{ form.quilometragem.id_for_label }}" class="block text-white text-sm font-medium mb-2">
+                            {{ form.quilometragem.label }}
+                        </label>
+                        {{ form.quilometragem }}
+                        {% if form.quilometragem.errors %}
+                            <div class="mt-1 text-red-400 text-sm">
+                                {% for error in form.quilometragem.errors %}
+                                    <p>{{ error }}</p>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Contato -->
+                    <div class="border-t border-gray-700 pt-6">
+                        <h3 class="text-xl font-semibold text-white mb-4">Informações de Contato</h3>
+                        
+                        <div>
+                            <label for="{{ form.telefone.id_for_label }}" class="block text-white text-sm font-medium mb-2">
+                                {{ form.telefone.label }}
+                            </label>
+                            {{ form.telefone }}
+                            {% if form.telefone.errors %}
+                                <div class="mt-1 text-red-400 text-sm">
+                                    {% for error in form.telefone.errors %}
+                                        <p>{{ error }}</p>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <!-- Localização -->
+                    <div class="border-t border-gray-700 pt-6">
+                        <h3 class="text-xl font-semibold text-white mb-4">Localização</h3>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label for="{{ form.cidade.id_for_label }}" class="block text-white text-sm font-medium mb-2">
+                                    {{ form.cidade.label }}
+                                </label>
+                                {{ form.cidade }}
+                                {% if form.cidade.errors %}
+                                    <div class="mt-1 text-red-400 text-sm">
+                                        {% for error in form.cidade.errors %}
+                                            <p>{{ error }}</p>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+
+                            <div>
+                                <label for="{{ form.estado.id_for_label }}" class="block text-white text-sm font-medium mb-2">
+                                    {{ form.estado.label }}
+                                </label>
+                                {{ form.estado }}
+                                {% if form.estado.errors %}
+                                    <div class="mt-1 text-red-400 text-sm">
+                                        {% for error in form.estado.errors %}
+                                            <p>{{ error }}</p>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Botões -->
+                    <div class="flex flex-col sm:flex-row gap-4 pt-6">
+                        <button type="submit" 
+                                class="flex-1 bg-red-600 hover:bg-red-700 text-white py-3 px-6 rounded-lg font-semibold transition-colors">
+                            Publicar Anúncio
+                        </button>
+                        <a href="{% url 'listar-anuncios' %}" 
+                           class="flex-1 bg-gray-700 hover:bg-gray-600 text-white py-3 px-6 rounded-lg font-semibold text-center transition-colors">
+                            Cancelar
+                        </a>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Dicas -->
+            <div class="mt-8 bg-gray-900 rounded-lg p-6">
+                <h3 class="text-lg font-semibold text-white mb-3">💡 Dicas para um bom anúncio:</h3>
+                <ul class="text-gray-300 space-y-2">
+                    <li>• Use um título descritivo com marca, modelo e ano</li>
+                    <li>• Descreva detalhadamente o estado do veículo</li>
+                    <li>• Mencione acessórios e características especiais</li>
+                    <li>• Seja transparente sobre problemas ou defeitos</li>
+                    <li>• Coloque um preço justo baseado no mercado</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// Aplicar estilos do Tailwind aos campos do formulário
+document.addEventListener('DOMContentLoaded', function() {
+    // Selects
+    const selects = document.querySelectorAll('select');
+    selects.forEach(select => {
+        select.className = 'w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white focus:ring-2 focus:ring-red-500 focus:border-transparent';
+    });
+    
+    // Inputs
+    const inputs = document.querySelectorAll('input[type="text"], input[type="number"]');
+    inputs.forEach(input => {
+        input.className = 'w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white focus:ring-2 focus:ring-red-500 focus:border-transparent';
+    });
+    
+    // Textarea
+    const textareas = document.querySelectorAll('textarea');
+    textareas.forEach(textarea => {
+        textarea.className = 'w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white focus:ring-2 focus:ring-red-500 focus:border-transparent';
+    });
+});
+</script>
+{% endblock %}

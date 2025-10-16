@@ -1,0 +1,274 @@
+{% extends 'base.html' %}
+{% block title %}Meus Anúncios - Hott Motors{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-black">
+    <div class="container mx-auto px-4 py-8">
+        <!-- Cabeçalho -->
+        <div class="mb-8">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center">
+                <div>
+                    <h1 class="text-4xl font-bold text-white mb-2">Meus Anúncios</h1>
+                    <p class="text-gray-300">Gerencie todos os seus anúncios de veículos</p>
+                </div>
+                <div class="mt-4 md:mt-0">
+                    <a href="{% url 'criar-anuncio' %}" class="bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors mr-3">
+                        + Novo Anúncio
+                    </a>
+                    <a href="{% url 'listar-anuncios' %}" class="bg-gray-700 hover:bg-gray-600 text-white px-6 py-3 rounded-lg font-semibold transition-colors">
+                        Ver Todos os Anúncios
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Estatísticas -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+            <div class="bg-gray-900 rounded-lg p-6">
+                <div class="flex items-center">
+                    <div class="text-3xl mr-4">📊</div>
+                    <div>
+                        <h3 class="text-2xl font-bold text-white">{{ anuncios.count }}</h3>
+                        <p class="text-gray-400">Total de Anúncios</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-gray-900 rounded-lg p-6">
+                <div class="flex items-center">
+                    <div class="text-3xl mr-4">✅</div>
+                    <div>
+                        <h3 class="text-2xl font-bold text-green-400">{{ anuncios_ativos }}</h3>
+                        <p class="text-gray-400">Ativos</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-gray-900 rounded-lg p-6">
+                <div class="flex items-center">
+                    <div class="text-3xl mr-4">⏸️</div>
+                    <div>
+                        <h3 class="text-2xl font-bold text-yellow-400">{{ anuncios_pausados }}</h3>
+                        <p class="text-gray-400">Pausados</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-gray-900 rounded-lg p-6">
+                <div class="flex items-center">
+                    <div class="text-3xl mr-4">💰</div>
+                    <div>
+                        <h3 class="text-2xl font-bold text-blue-400">{{ anuncios_vendidos }}</h3>
+                        <p class="text-gray-400">Vendidos</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Filtros -->
+        <div class="bg-gray-900 rounded-lg p-6 mb-8">
+            <form method="GET" class="flex flex-wrap gap-4 items-end">
+                <div>
+                    <label class="block text-white text-sm font-medium mb-2">Status</label>
+                    <select name="status" class="px-3 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white focus:ring-2 focus:ring-red-500">
+                        <option value="">Todos</option>
+                        <option value="ativo" {% if request.GET.status == 'ativo' %}selected{% endif %}>Ativo</option>
+                        <option value="pausado" {% if request.GET.status == 'pausado' %}selected{% endif %}>Pausado</option>
+                        <option value="vendido" {% if request.GET.status == 'vendido' %}selected{% endif %}>Vendido</option>
+                    </select>
+                </div>
+                
+                <div>
+                    <label class="block text-white text-sm font-medium mb-2">Tipo</label>
+                    <select name="tipo" class="px-3 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white focus:ring-2 focus:ring-red-500">
+                        <option value="">Todos</option>
+                        <option value="venda" {% if request.GET.tipo == 'venda' %}selected{% endif %}>Venda</option>
+                        <option value="troca" {% if request.GET.tipo == 'troca' %}selected{% endif %}>Troca</option>
+                    </select>
+                </div>
+                
+                <div>
+                    <button type="submit" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg font-medium transition-colors">
+                        Filtrar
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Lista de Anúncios -->
+        {% if anuncios %}
+            <div class="space-y-6">
+                {% for anuncio in anuncios %}
+                    <div class="bg-gray-900 rounded-lg overflow-hidden">
+                        <div class="md:flex">
+                            <!-- Imagem -->
+                            <div class="md:w-80 md:h-48">
+                                {% if anuncio.veiculo.foto %}
+                                    <img src="{% url 'foto-veiculo' anuncio.veiculo.foto %}" 
+                                         alt="{{ anuncio.titulo }}" 
+                                         class="w-full h-48 object-cover">
+                                {% else %}
+                                    <div class="w-full h-48 bg-gray-800 flex items-center justify-center">
+                                        <span class="text-gray-500 text-4xl">🚗</span>
+                                    </div>
+                                {% endif %}
+                            </div>
+                            
+                            <!-- Conteúdo -->
+                            <div class="flex-1 p-6">
+                                <div class="flex justify-between items-start mb-4">
+                                    <div>
+                                        <h3 class="text-xl font-bold text-white mb-2">{{ anuncio.titulo }}</h3>
+                                        <p class="text-gray-300">{{ anuncio.veiculo.marca }} {{ anuncio.veiculo.modelo }} - {{ anuncio.veiculo.ano }}</p>
+                                    </div>
+                                    
+                                    <!-- Status -->
+                                    <span class="inline-block px-3 py-1 text-sm font-semibold rounded-full 
+                                        {% if anuncio.status == 'ativo' %}bg-green-600 text-white
+                                        {% elif anuncio.status == 'vendido' %}bg-blue-600 text-white
+                                        {% else %}bg-yellow-600 text-black{% endif %}">
+                                        {{ anuncio.get_status_display|upper }}
+                                    </span>
+                                </div>
+                                
+                                <!-- Preço e Tipo -->
+                                <div class="mb-4">
+                                    {% if anuncio.tipo_anuncio == 'venda' %}
+                                        <span class="text-2xl font-bold text-red-500">R$ {{ anuncio.preco|floatformat:2 }}</span>
+                                    {% else %}
+                                        <span class="text-lg font-semibold text-blue-400">TROCA</span>
+                                    {% endif %}
+                                </div>
+                                
+                                <!-- Informações -->
+                                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm text-gray-400 mb-4">
+                                    <div>👁️ {{ anuncio.visualizacoes }} views</div>
+                                    <div>📅 {{ anuncio.data_criacao|date:"d/m/Y" }}</div>
+                                    <div>📍 {{ anuncio.cidade }}, {{ anuncio.estado }}</div>
+                                    {% if anuncio.quilometragem %}
+                                        <div>🛣️ {{ anuncio.quilometragem|floatformat:0 }} km</div>
+                                    {% endif %}
+                                </div>
+                                
+                                <!-- Ações -->
+                                <div class="flex flex-wrap gap-3">
+                                    <a href="{% url 'detalhe-anuncio' anuncio.pk %}" 
+                                       class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors">
+                                        Ver Detalhes
+                                    </a>
+                                    
+                                    <a href="{% url 'editar-anuncio' anuncio.pk %}" 
+                                       class="bg-yellow-600 hover:bg-yellow-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors">
+                                        Editar
+                                    </a>
+                                    
+                                    {% if anuncio.status == 'ativo' %}
+                                        <button data-anuncio-id="{{ anuncio.pk }}" data-novo-status="pausado" 
+                                                class="btn-alterar-status bg-orange-600 hover:bg-orange-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors">
+                                            Pausar
+                                        </button>
+                                    {% elif anuncio.status == 'pausado' %}
+                                        <button data-anuncio-id="{{ anuncio.pk }}" data-novo-status="ativo" 
+                                                class="btn-alterar-status bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors">
+                                            Reativar
+                                        </button>
+                                    {% endif %}
+                                    
+                                    {% if anuncio.status != 'vendido' %}
+                                        <button data-anuncio-id="{{ anuncio.pk }}" data-novo-status="vendido" 
+                                                class="btn-alterar-status bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors">
+                                            Marcar Vendido
+                                        </button>
+                                    {% endif %}
+                                    
+                                    <button data-anuncio-id="{{ anuncio.pk }}" 
+                                            class="btn-excluir bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors">
+                                        Excluir
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <!-- Estado Vazio -->
+            <div class="bg-gray-900 rounded-lg p-12 text-center">
+                <div class="text-6xl mb-4">📢</div>
+                <h3 class="text-2xl font-bold text-white mb-2">Você ainda não tem anúncios</h3>
+                <p class="text-gray-400 mb-6">Comece criando seu primeiro anúncio e encontre compradores para seus veículos!</p>
+                <a href="{% url 'criar-anuncio' %}" 
+                   class="bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors inline-block">
+                    Criar Primeiro Anúncio
+                </a>
+            </div>
+        {% endif %}
+
+        <!-- Paginação -->
+        {% if is_paginated %}
+            <div class="mt-8 flex justify-center">
+                <nav class="flex space-x-2">
+                    {% if page_obj.has_previous %}
+                        <a href="?page=1{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}" 
+                           class="px-3 py-2 bg-gray-700 text-white rounded hover:bg-gray-600">Primeira</a>
+                        <a href="?page={{ page_obj.previous_page_number }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}" 
+                           class="px-3 py-2 bg-gray-700 text-white rounded hover:bg-gray-600">Anterior</a>
+                    {% endif %}
+                    
+                    <span class="px-3 py-2 bg-red-600 text-white rounded">
+                        Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}
+                    </span>
+                    
+                    {% if page_obj.has_next %}
+                        <a href="?page={{ page_obj.next_page_number }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}" 
+                           class="px-3 py-2 bg-gray-700 text-white rounded hover:bg-gray-600">Próxima</a>
+                        <a href="?page={{ page_obj.paginator.num_pages }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}" 
+                           class="px-3 py-2 bg-gray-700 text-white rounded hover:bg-gray-600">Última</a>
+                    {% endif %}
+                </nav>
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+<!-- Scripts -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Event listeners para botões de alterar status
+    document.querySelectorAll('.btn-alterar-status').forEach(button => {
+        button.addEventListener('click', function() {
+            const anuncioId = this.dataset.anuncioId;
+            const novoStatus = this.dataset.novoStatus;
+            alterarStatus(anuncioId, novoStatus);
+        });
+    });
+
+    // Event listeners para botões de excluir
+    document.querySelectorAll('.btn-excluir').forEach(button => {
+        button.addEventListener('click', function() {
+            const anuncioId = this.dataset.anuncioId;
+            confirmarExclusao(anuncioId);
+        });
+    });
+});
+
+function alterarStatus(anuncioId, novoStatus) {
+    let mensagem = `Tem certeza que deseja alterar o status para "${novoStatus}"?`;
+    if (novoStatus === 'vendido') {
+        mensagem = 'Tem certeza que deseja marcar este anúncio como vendido? Ele não aparecerá mais nas buscas.';
+    }
+    
+    if (confirm(mensagem)) {
+        // Funcionalidade em desenvolvimento - aqui implementaria AJAX
+        alert('Funcionalidade em desenvolvimento');
+        // location.reload();
+    }
+}
+
+function confirmarExclusao(anuncioId) {
+    if (confirm('Tem certeza que deseja excluir este anúncio? Esta ação não pode ser desfeita.')) {
+        window.location.href = `/veiculo/anuncios/apagar/${anuncioId}/`;
+    }
+}
+</script>
+{% endblock %}
