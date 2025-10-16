@@ -11,6 +11,12 @@ class Veiculo(models.Model):
     combustivel = models.SmallIntegerField(choices=OPCOES_COMBUSTIVEL)
     foto = models.ImageField( blank=True, null=True , upload_to='veiculo/fotos')
 
+    def get_foto_filename(self):
+        """Retorna apenas o nome do arquivo da foto, sem o caminho"""
+        if self.foto:
+            return self.foto.name.split('/')[-1]
+        return None
+
 class Anuncio(models.Model):
     TIPO_CHOICES = [
         ('venda', 'Venda'),

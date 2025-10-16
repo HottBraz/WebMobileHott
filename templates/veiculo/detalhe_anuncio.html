@@ -2,7 +2,7 @@
 {% block title %}{{ anuncio.titulo }} - Hott Motors{% endblock %}
 
 {% block conteudo %}
-<div class="min-h-screen bg-black">
+<div class="min-h-screen bg-gray-50">
     <div class="container mx-auto px-4 py-8">
         <div class="max-w-6xl mx-auto">
             <!-- Breadcrumb -->
@@ -20,7 +20,7 @@
                     <!-- Imagem do Veículo -->
                     <div class="bg-gray-900 rounded-lg overflow-hidden mb-6">
                         {% if anuncio.veiculo.foto %}
-                            <img src="{% url 'foto-veiculo' anuncio.veiculo.foto.name %}" 
+                            <img src="{% url 'foto-veiculo' anuncio.veiculo.get_foto_filename %}" 
                                  alt="{{ anuncio.titulo }}" 
                                  class="w-full h-96 object-cover">
                         {% else %}

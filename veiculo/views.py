@@ -95,7 +95,7 @@ class ListarAnuncios(ListView):
         queryset = Anuncio.objects.filter(status='ativo').select_related('veiculo', 'usuario')
         
         # Filtros de busca
-        busca = self.request.GET.get('busca')
+        busca = self.request.GET.get('search')  # Alterado de 'busca' para 'search'
         cidade = self.request.GET.get('cidade')
         preco_min = self.request.GET.get('preco_min')
         preco_max = self.request.GET.get('preco_max')
