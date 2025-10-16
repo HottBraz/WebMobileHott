@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block title %}{{ anuncio.titulo }} - Hott Motors{% endblock %}
 
-{% block content %}
+{% block conteudo %}
 <div class="min-h-screen bg-black">
     <div class="container mx-auto px-4 py-8">
         <div class="max-w-6xl mx-auto">
@@ -20,7 +20,7 @@
                     <!-- Imagem do Veículo -->
                     <div class="bg-gray-900 rounded-lg overflow-hidden mb-6">
                         {% if anuncio.veiculo.foto %}
-                            <img src="{% url 'foto-veiculo' anuncio.veiculo.foto %}" 
+                            <img src="{% url 'foto-veiculo' anuncio.veiculo.foto.name %}" 
                                  alt="{{ anuncio.titulo }}" 
                                  class="w-full h-96 object-cover">
                         {% else %}

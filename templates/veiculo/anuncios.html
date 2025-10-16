@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block title %}Anúncios de Veículos - Hott Motors{% endblock %}
 
-{% block content %}
+{% block conteudo %}
 <div class="min-h-screen bg-black">
     <div class="container mx-auto px-4 py-8">
         <!-- Cabeçalho -->
@@ -71,7 +71,7 @@
                 <div class="bg-gray-900 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
                     <!-- Imagem do Veículo -->
                     {% if anuncio.veiculo.foto %}
-                        <img src="{% url 'foto-veiculo' anuncio.veiculo.foto %}" alt="{{ anuncio.titulo }}" class="w-full h-48 object-cover">
+                        <img src="{% url 'foto-veiculo' anuncio.veiculo.foto.name %}" alt="{{ anuncio.titulo }}" class="w-full h-48 object-cover">
                     {% else %}
                         <div class="w-full h-48 bg-gray-800 flex items-center justify-center">
                             <span class="text-gray-500 text-lg">🚗</span>

@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block title %}Meus Anúncios - Hott Motors{% endblock %}
 
-{% block content %}
+{% block conteudo %}
 <div class="min-h-screen bg-black">
     <div class="container mx-auto px-4 py-8">
         <!-- Cabeçalho -->
@@ -104,7 +104,7 @@
                             <!-- Imagem -->
                             <div class="md:w-80 md:h-48">
                                 {% if anuncio.veiculo.foto %}
-                                    <img src="{% url 'foto-veiculo' anuncio.veiculo.foto %}" 
+                                    <img src="{% url 'foto-veiculo' anuncio.veiculo.foto.name %}" 
                                          alt="{{ anuncio.titulo }}" 
                                          class="w-full h-48 object-cover">
                                 {% else %}
