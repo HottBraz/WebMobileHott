@@ -17,6 +17,33 @@
         
         .texture-bg {
             background: #000000;
+            background-image: 
+                radial-gradient(circle at 25% 25%, rgba(220, 38, 38, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 75% 75%, rgba(185, 28, 28, 0.2) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(153, 27, 27, 0.1) 0%, transparent 50%),
+                radial-gradient(ellipse at 10% 80%, rgba(220, 38, 38, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 90% 20%, rgba(185, 28, 28, 0.1) 0%, transparent 50%),
+                linear-gradient(45deg, rgba(220, 38, 38, 0.05) 0%, transparent 50%),
+                linear-gradient(-45deg, rgba(185, 28, 28, 0.03) 0%, transparent 50%);
+            background-size: 400px 400px, 300px 300px, 500px 500px, 350px 350px, 280px 280px, 100px 100px, 150px 150px;
+            animation: textureAnimation 20s ease-in-out infinite;
+        }
+        
+        @keyframes textureAnimation {
+            0%, 100% {
+                background-position: 0% 0%, 100% 100%, 50% 50%, 10% 80%, 90% 20%, 0% 0%, 100% 100%;
+            }
+            50% {
+                background-position: 100% 100%, 0% 0%, 25% 75%, 90% 10%, 10% 90%, 50% 50%, 0% 0%;
+            }
+        }
+        
+        .glass-effect {
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.6);
         }
     </style>
 </head>
@@ -33,9 +60,9 @@
             </h1>
         </div>
 
-        <!-- Formulário de Login -->
-
-        <form action="/" method="POST" class="space-y-6">
+        <!-- Formulário de Login com Efeito de Vidro -->
+        <div class="glass-effect rounded-2xl p-8">
+            <form action="/" method="POST" class="space-y-6">
             {% csrf_token %}
             
             <!-- Campo de Usuário -->
@@ -68,12 +95,13 @@
                     ENTRAR
                 </button>
             </div>
-        </form>
+            </form>
 
-        <!-- Link para Criar Conta -->
-        <p class="text-center text-gray-300 mt-8">
-            Não tem conta? <a href="#" class="text-red-400 font-semibold hover:text-red-300 transition duration-200">Criar conta</a>
-        </p>
+            <!-- Link para Criar Conta -->
+            <p class="text-center text-gray-300 mt-8">
+                Não tem conta? <a href="#" class="text-red-400 font-semibold hover:text-red-300 transition duration-200">Criar conta</a>
+            </p>
+        </div>
     </div>
     <!-- Modal de erro -->
     {% if mensagem %}

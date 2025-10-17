@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from veiculo.consts import OPCOES_MARCAS, OPCOES_COR, OPCOES_COMBUSTIVEL
+from datetime import datetime
 
 # Create your models here.
 class Veiculo(models.Model):
@@ -10,6 +11,13 @@ class Veiculo(models.Model):
     cor = models.SmallIntegerField(choices=OPCOES_COR)
     combustivel = models.SmallIntegerField(choices=OPCOES_COMBUSTIVEL)
     foto = models.ImageField( blank=True, null=True , upload_to='veiculo/fotos')
+
+    @property
+    def veiculo_novo(self):
+        return self.ano == datetime.now().year
+    
+    def anos_de_uso(self):
+        return datetime.now().year - self.ano
 
     def get_foto_filename(self):
         """Retorna apenas o nome do arquivo da foto, sem o caminho"""
