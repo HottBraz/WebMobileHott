@@ -9,6 +9,10 @@ from django.views import View
 from django.http import FileResponse , Http404
 from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import get_object_or_404
+from veiculo.serializers import SerializadorVeiculo
+from rest_framework.authentication import TokenAuthentication
+from rest_framework import permissions
+from rest_framework.generics import ListAPIView
 
 
 class ListarVeiculos(LoginRequiredMixin, ListView):
@@ -228,3 +232,11 @@ class ApagarAnuncio(LoginRequiredMixin, DeleteView):
         Permite apagar apenas anúncios do usuário logado.
         """
         return Anuncio.objects.filter(usuario=self.request.user)
+    
+class APIListarVeiculos(ListAPIView):
+    serializer_class = SerializadorVeiculo
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        return Veiculo.objects.all()
